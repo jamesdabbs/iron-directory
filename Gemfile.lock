@@ -158,6 +158,10 @@ GEM
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rollbar (2.0.2)
+    rubyXL (3.3.9)
+      nokogiri (>= 1.4.4)
+      rubyzip (>= 1.1.6)
+    rubyzip (1.1.7)
     sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -227,6 +231,7 @@ DEPENDENCIES
   rails (= 4.2.3)
   rails_12factor
   rollbar
+  rubyXL
   sass-rails (~> 5.0)
   slack-api
   slim-rails

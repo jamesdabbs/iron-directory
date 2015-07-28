@@ -9,7 +9,7 @@ table.table.table-hover
       th
       th Name
       th Email
-      th Title
+      th
       th Slack
       th Skype
       th Phone
@@ -23,7 +23,10 @@ table.table.table-hover
 
         td= member.name
         td= member.email
-        td= member.title
+        td
+          = member.campus.try(:name)
+          br
+          small= member.title
         td= link_to member.slack_username, "https://#{@team.domain}.slack.com/messages/@#{member.slack_username}", target: "_blank"
         td= member.skype_username
         td= member.phone_number

@@ -34,4 +34,4 @@
     = link_to "Reset", reset_api_key_path, class: "btn btn-default btn-sm", method: :patch
   pre= @user.api_key
 
-  p Set header <code>Authorization: bearer &lt;key&gt;</code> to make authenticated API requests.
+  p Set header <code>Authorization: bearer #{@user.api_key}</code> to make authenticated API requests.

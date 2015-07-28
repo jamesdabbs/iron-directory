@@ -6,7 +6,8 @@ class TeamsController < ApplicationController
   def show
     @team = SlackTeam.find params[:id]
     @members = @team.members.active.
-      order("slack_data->'profile'->>'last_name'")
+      order("slack_data->'profile'->>'last_name'").
+      includes(:campus)
   end
 
   def staff

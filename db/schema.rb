@@ -27,13 +27,11 @@ ActiveRecord::Schema.define(version: 20150728160517) do
 
   create_table "courses", force: :cascade do |t|
     t.integer "campus_id",     null: false
-    t.integer "instructor_id", null: false
     t.integer "topic_id",      null: false
     t.date    "start_on",      null: false
   end
 
   add_index "courses", ["campus_id"], name: "index_courses_on_campus_id", using: :btree
-  add_index "courses", ["instructor_id"], name: "index_courses_on_instructor_id", using: :btree
   add_index "courses", ["topic_id"], name: "index_courses_on_topic_id", using: :btree
 
   create_table "slack_teams", force: :cascade do |t|
@@ -90,7 +88,6 @@ ActiveRecord::Schema.define(version: 20150728160517) do
 
   add_foreign_key "courses", "campuses"
   add_foreign_key "courses", "topics"
-  add_foreign_key "courses", "yardigans", column: "instructor_id"
   add_foreign_key "yardigans", "campuses"
   add_foreign_key "yardigans", "slack_teams"
   add_foreign_key "yardigans", "users"
