@@ -8,14 +8,18 @@ class User < ActiveRecord::Base
 
   def self.create_from_google_auth auth
     user = where(email: auth.info.email).first_or_initialize
-    user.update google_auth: auth.to_h
+    user.update \
+      google_auth: auth.to_h,
+      api_key:     generate_api_key
 
     Yardigan.where(email: user.email).update_all user_id: user.id
     user
   end
 
-  def can_sync? team
-    membership = team.members.find_by_user_id id
-    membership && membership.slack_token
+  def self.generate_api_key
+    begin
+      key = SecureRandom.uuid
+    end while exists?(api_key: key)
+    key
   end
 end

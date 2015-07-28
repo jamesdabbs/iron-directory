@@ -29,3 +29,9 @@
     No account data is available. Please contact #{link_to "James", "https://theironyard.slack.com/messages/@james"}.
 
 .col-md-6
+  h3
+    | API Key 
+    = link_to "Reset", reset_api_key_path, class: "btn btn-default btn-sm", method: :patch
+  pre= @user.api_key
+
+  p Set header <code>Authorization: bearer &lt;key&gt;</code> to make authenticated API requests.
