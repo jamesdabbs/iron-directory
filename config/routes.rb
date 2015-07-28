@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :teams, only: [:index, :show, :edit, :update]
 
   post '/slack/sync' => 'teams#sync', as: :sync_slack
+  get '/staff' => 'teams#staff'
   patch '/profile/api_key' => 'profiles#reset_api_key', as: :reset_api_key
 
   root to: 'teams#staff'

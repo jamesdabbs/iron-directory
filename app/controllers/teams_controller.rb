@@ -11,7 +11,11 @@ class TeamsController < ApplicationController
   end
 
   def staff
-    redirect_to team_path SlackTeam.staff
+    @team = SlackTeam.staff
+    @members = @team.members.active.
+      order("slack_data->'profile'->>'last_name'").
+      includes(:campus)
+    render :show
   end
 
   # Quick-and-dirty data entry. These should probably be
