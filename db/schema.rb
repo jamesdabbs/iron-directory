@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728160517) do
+ActiveRecord::Schema.define(version: 20150728181432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20150728160517) do
   add_index "campuses", ["name"], name: "index_campuses_on_name", unique: true, using: :btree
 
   create_table "courses", force: :cascade do |t|
-    t.integer "campus_id",     null: false
-    t.integer "topic_id",      null: false
-    t.date    "start_on",      null: false
+    t.integer "campus_id", null: false
+    t.integer "topic_id",  null: false
+    t.date    "start_on",  null: false
   end
 
   add_index "courses", ["campus_id"], name: "index_courses_on_campus_id", using: :btree
@@ -54,21 +54,22 @@ ActiveRecord::Schema.define(version: 20150728160517) do
   add_index "topics", ["title"], name: "index_topics_on_title", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",               default: "", null: false
+    t.string   "email",               default: "",    null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,  null: false
+    t.integer  "sign_in_count",       default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.json     "google_auth"
     t.string   "api_key"
+    t.boolean  "admin",               default: false, null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "yardigans", force: :cascade do |t|
     t.integer  "slack_team_id"

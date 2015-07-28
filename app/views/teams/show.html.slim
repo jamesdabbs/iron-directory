@@ -9,24 +9,25 @@ table.table.table-hover
       th
       th Name
       th Email
-      th
+      th Campus
       th Slack
       th Skype
       th Phone
   tbody
     - @members.each do |member|
       tr
+        td= image_tag member.profile["image_48"]
         td
           - if member.user_id == current_user.id
-            = link_to member.remote_profile_path, target: "_blank", class: "btn btn-sm btn-default" do
-              i.glyphicon.glyphicon-pencil
-
-        td= member.name
+            = link_to member.name, member.remote_profile_path, target: "_blank"
+          - else
+            = member.name
         td= member.email
         td
           = member.campus.try(:name)
           br
-          small= member.title
+          small
+            i= member.title
         td= link_to member.slack_username, "https://#{@team.domain}.slack.com/messages/@#{member.slack_username}", target: "_blank"
         td= member.skype_username
         td= member.phone_number

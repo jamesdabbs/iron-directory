@@ -1,0 +1,19 @@
+= form_tag team_path(@team), method: :patch do
+  table.table
+    thead
+      tr
+        th Name
+        th Email
+        th Slack
+        th Title
+        th Campus
+    tbody
+      - @members.each do |m|
+        tr
+          td= m.name
+          td= m.email
+          td= m.slack_username
+          th= m.title
+          td= collection_select :campus, m.id, @campuses, :id, :name, {selected: m.campus_id, include_blank: true}, class: "form-control"
+
+  button.btn.btn-primary Update

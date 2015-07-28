@@ -5,7 +5,7 @@ class Yardigan < ActiveRecord::Base
 
   validates_presence_of :slack_team, :slack_id, :slack_data, :email
 
-  scope :active, -> { where "slack_data->>'deleted' = 'false'" }
+  scope :active, -> { where "slack_data->>'deleted' = 'false' AND slack_data->>'is_restricted' = 'false' AND slack_data->>'is_ultra_restricted' = 'false'" }
 
   def profile
     slack_data.fetch "profile"
