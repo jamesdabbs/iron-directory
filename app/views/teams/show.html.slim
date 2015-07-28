@@ -1,0 +1,29 @@
+h1
+  = @team.name
+  ' 
+  small= link_to "#{@team.domain}.slack.com", "https://#{@team.domain}.slack.com"
+
+table.table.table-hover
+  thead
+    tr
+      th
+      th Name
+      th Email
+      th Title
+      th Slack
+      th Skype
+      th Phone
+  tbody
+    - @members.each do |member|
+      tr
+        td
+          - if member.user_id == current_user.id
+            = link_to member.remote_profile_path, target: "_blank", class: "btn btn-sm btn-default" do
+              i.glyphicon.glyphicon-pencil
+
+        td= member.name
+        td= member.email
+        td= member.title
+        td= link_to member.slack_username, "https://#{@team.domain}.slack.com/messages/@#{member.slack_username}", target: "_blank"
+        td= member.skype_username
+        td= member.phone_number

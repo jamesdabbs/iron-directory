@@ -1,0 +1,7 @@
+- @teams.each do |team|
+  .row
+    .col-md-2
+      img src=team.image(132) alt=team.name
+    .col-md-10
+      h3= link_to team.name, team_path(team)
+      p #{team.domain} | #{team.members.active.count} members

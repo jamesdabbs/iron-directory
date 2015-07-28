@@ -1,0 +1,53 @@
+Atlanta:
+  name: Atlanta
+  aliases:
+  - ATL
+Austin:
+  name: Austin
+  aliases:
+Charleston:
+  name: Charleston
+  aliases:
+  - CHS
+Columbia:
+  name: Columbia
+  aliases:
+Greenville:
+  name: Greenville
+  aliases:
+  - GVL
+Houston:
+  name: Houston
+  aliases:
+  - HOU
+  - HTX
+Indianapolis:
+  name: Indianapolis
+  aliases:
+Las Vegas:
+  name: Las Vegas
+  aliases:
+Little Rock:
+  name: Little Rock
+  aliases:
+Nashville:
+  name: Nashville
+  aliases:
+Orlando:
+  name: Orlando
+  aliases:
+  - ORL
+Raleigh-Durham:
+  name: Raleigh-Durham
+  aliases:
+  - Durham
+Tampa-St. Petersburg:
+  name: Tampa-St. Petersburg
+  aliases:
+  - Tampa
+  - St. Pete
+Washington, D.C.:
+  name: Washington, D.C.
+  aliases:
+  - Washington
+  - DC

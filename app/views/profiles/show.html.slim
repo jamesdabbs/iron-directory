@@ -1,0 +1,31 @@
+.col-md-6
+  - if @yardigan
+    table.table
+      thead
+        tr
+          th
+          th
+      tbody
+        tr
+          th Name
+          td= @yardigan.name
+        tr
+          th Email
+          td= @yardigan.email
+        tr
+          th Title
+          td= @yardigan.title
+        tr
+          th Slack
+          td= @yardigan.slack_username
+        tr
+          th Skype
+          td= @yardigan.skype_username
+        tr
+          th Phone
+          td= @yardigan.phone_number
+    p To update your profile, #{link_to 'edit your account on Slack', @yardigan.remote_profile_path, target: '_blank'} and then either #{link_to 'trigger a Slack sync', sync_slack_path, method: :post} or wait for one to happen automatically.
+  - else
+    No account data is available. Please contact #{link_to "James", "https://theironyard.slack.com/messages/@james"}.
+
+.col-md-6

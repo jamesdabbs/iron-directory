@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: iron_directory_dev
+
+test:
+  <<: *default
+  database: iron_directory_test
+
+production:
+  <<: *default
+  database: iron_directory_prod

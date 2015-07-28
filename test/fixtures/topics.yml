@@ -1,0 +1,30 @@
+Front End Engineering:
+  title: Front End Engineering
+  aliases:
+  - JS
+  - Javascript
+  - FE
+  - FEE
+Mobile Engineering:
+  title: Mobile Engineering
+  aliases:
+  - iOS
+".NET Engineering":
+  title: ".NET Engineering"
+  aliases:
+  - NET
+Python Engineering:
+  title: Python Engineering
+  aliases:
+  - py
+Rails Engineering:
+  title: Rails Engineering
+  aliases:
+  - ROR
+  - rb
+  - ruby
+  - rubies
+User Interface Design:
+  title: User Interface Design
+  aliases:
+  - design
