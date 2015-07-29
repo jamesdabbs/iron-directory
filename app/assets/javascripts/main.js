@@ -22,7 +22,8 @@ controller("staffController", ["$scope", "$http", function($scope, $http) {
     }
   }
 
-  $http.get(window.location + ".json").success(function(data) {
+  var url = window.location.origin + window.location.pathname
+  $http.get(url + ".json").success(function(data) {
     $scope.members = data.staff
   })
 }])
