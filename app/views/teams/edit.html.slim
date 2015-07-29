@@ -7,6 +7,7 @@
         th Slack
         th Title
         th Campus
+        th Course
     tbody
       - @members.each do |m|
         tr
@@ -15,5 +16,6 @@
           td= m.slack_username
           th= m.title
           td= collection_select :campus, m.id, @campuses, :id, :name, {selected: m.campus_id, include_blank: true}, class: "form-control"
+          td= collection_select :course, m.id, @courses.select { |c| c.campus_id == m.campus_id }, :id, :title, { selected: m.latest_course_id, include_blank: true }, class: "form-control"
 
   button.btn.btn-primary Update

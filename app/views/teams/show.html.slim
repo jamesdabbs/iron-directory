@@ -9,7 +9,8 @@ table.table.table-hover
       th
       th Name
       th Email
-      th Campus
+      th
+      th
       th Slack
       th Skype
       th Phone
@@ -28,6 +29,12 @@ table.table.table-hover
           br
           small
             i= member.title
+        td
+          - if member.latest_course
+            = member.latest_course.topic.title
+            br
+            small
+              i= member.latest_course.start_on.strftime '%b %y'
         td= link_to member.slack_username, "https://#{@team.domain}.slack.com/messages/@#{member.slack_username}", target: "_blank"
         td= member.skype_username
         td= member.phone_number

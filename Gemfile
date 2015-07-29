@@ -22,11 +22,14 @@ gem 'twitter-bootstrap-rails'
 
 gem 'slack-api', require: 'slack'
 
+gem 'bullet'
+gem 'slack-mail'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'
-  gem 'rubyXL' # for importing schedule
+  # gem 'rubyXL' # for importing schedule
 end
 
 group :development, :test do

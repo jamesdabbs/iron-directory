@@ -7,14 +7,13 @@ class TeamsController < ApplicationController
     @team = SlackTeam.find params[:id]
     @members = @team.members.active.
       order("slack_data->'profile'->>'last_name'").
-      includes(:campus)
+      includes(:campus, latest_course: :topic)
   end
 
   def staff
-    @team = SlackTeam.staff
-    @members = @team.members.active.
-      order("slack_data->'profile'->>'last_name'").
-      includes(:campus)
+    # ¯\_(ツ)_/¯
+    params[:id] = SlackTeam.staff.id
+    show
     render :show
   end
 
@@ -24,19 +23,15 @@ class TeamsController < ApplicationController
     require_admin!
     @team = SlackTeam.find params[:id]
     @members = @team.members.active.
-      order("slack_data->'profile'->>'last_name'").
-      includes(:campus)
+      order("slack_data->'profile'->>'last_name'")
     @campuses = Campus.all
+    @courses  = Course.all.includes :topic
   end
   def update
     require_admin!
-    team = SlackTeam.find params[:id]
-    team.members.each do |member|
-      updated = params[:campus][member.id.to_s]
-      if updated.present? && member.campus_id.to_s != updated.to_s
-        member.update campus_id: updated
-      end
-    end
+    UpdateTeam.new(params[:id]).run! \
+      campuses: params[:campus],
+      courses:  params[:course]
     redirect_to :back, notice: "Updated"
   end
 

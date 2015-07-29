@@ -1,14 +1,6 @@
 # TODO
 
-## MVP
-
-* Course, campus, and topic listings
-* JSON endpoint
-* Token system
-
-
-## Next
-
+* Sort / filtering on team view
 * User updates:
   * add and tag courses
   * update profile

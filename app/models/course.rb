@@ -4,4 +4,8 @@ class Course < ActiveRecord::Base
   belongs_to :instructor, class_name: "Yardigan"
 
   validates_presence_of :campus, :topic, :instructor, :start_on
+
+  def title
+    "#{topic.title} - #{start_on.strftime '%b %y'}"
+  end
 end

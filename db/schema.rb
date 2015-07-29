@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728181432) do
+ActiveRecord::Schema.define(version: 20150728234837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,10 +77,11 @@ ActiveRecord::Schema.define(version: 20150728181432) do
     t.string   "slack_id"
     t.string   "slack_token"
     t.json     "slack_data"
-    t.string   "email",         null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "email",            null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "campus_id"
+    t.integer  "latest_course_id"
   end
 
   add_index "yardigans", ["campus_id"], name: "index_yardigans_on_campus_id", using: :btree

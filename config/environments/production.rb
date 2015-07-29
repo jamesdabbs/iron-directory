@@ -76,4 +76,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.slack_mail.deliver_with :perform, webhook_url: Figaro.env.notification_webhook_url!
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.slack  = { webhook_url: Figaro.env.notification_webhook_url!, channel: '@james', username: 'Ironbot' }
+  end
 end

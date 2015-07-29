@@ -2,6 +2,7 @@ class Yardigan < ActiveRecord::Base
   belongs_to :slack_team
   belongs_to :user
   belongs_to :campus
+  belongs_to :latest_course, class_name: "Course"
 
   validates_presence_of :slack_team, :slack_id, :slack_data, :email
 

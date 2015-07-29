@@ -9,9 +9,9 @@ Rails.application.routes.draw do
 
   resources :teams, only: [:index, :show, :edit, :update]
 
-  post '/slack/sync' => 'teams#sync', as: :sync_slack
-  get '/staff' => 'teams#staff'
+  get   '/staff'           => 'teams#staff'
+  post  '/slack/sync'      => 'teams#sync', as: :sync_slack
   patch '/profile/api_key' => 'profiles#reset_api_key', as: :reset_api_key
 
-  root to: 'teams#staff'
+  root to: redirect('/staff')
 end

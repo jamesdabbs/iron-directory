@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  rescue_from StandardError do |e|
+    Slack::Mail.new(channel: "@james").attach_error(e).deliver_later
+    raise e
+  end
+
 private
 
   def require_admin!
