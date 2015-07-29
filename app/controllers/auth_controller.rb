@@ -30,6 +30,10 @@ class AuthController < Devise::OmniauthCallbacksController
     redirect_to profile_path, notice: "Authenticated with Slack"
   end
 
+  def failure
+    redirect_to new_user_session_path, flash: { error: "OAuth signin failed - #{failure_message}" }
+  end
+
 private
 
   def auth
