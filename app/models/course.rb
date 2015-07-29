@@ -8,4 +8,10 @@ class Course < ActiveRecord::Base
   def title
     "#{topic.title} - #{start_on.strftime '%b %y'}"
   end
+
+  def end_on
+    # This assumes we always start on a Monday and end on a Friday
+    # Might need to migrate this to a DB column at some point
+    start_on + 11.weeks + 4.days
+  end
 end

@@ -8,7 +8,7 @@ json.staff @members do |m|
 
   json.current_course do
     next unless course = m.latest_course
+    json.(course, :start_on, :end_on)
     json.topic    course.topic.title
-    json.start_on course.start_on
   end
 end
