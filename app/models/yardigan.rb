@@ -37,7 +37,14 @@ class Yardigan < ActiveRecord::Base
   end
 
   def phone_number
-    profile["phone"]
+    raw = profile["phone"]
+    return "" unless raw
+    raw = raw.gsub /\D/, ''
+    if raw.length == 10
+      "(#{raw[0..2]}) #{raw[3..5]}-#{raw[6..9]}"
+    else
+      profile["phone"]
+    end
   end
 
   def deleted?

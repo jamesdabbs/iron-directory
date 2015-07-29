@@ -8,33 +8,31 @@ table.table.table-hover
     tr
       th
       th Name
+      th
       th Email
-      th
-      th
       th Slack
       th Skype
       th Phone
   tbody
     - @members.each do |member|
       tr
-        td= image_tag member.profile["image_48"]
+        td
+          = image_tag member.profile["image_48"]
         td
           - if member.user_id == current_user.id
             = link_to member.name, member.remote_profile_path, target: "_blank"
           - else
             = member.name
-        td= member.email
         td
           = member.campus.try(:name)
           br
           small
-            i= member.title
-        td
-          - if member.latest_course
-            = member.latest_course.topic.title
-            br
-            small
-              i= member.latest_course.start_on.strftime '%b %y'
+            i
+              - if member.latest_course
+                = member.latest_course.topic.title
+              - else
+                = member.title
+        td= link_to member.email, "mailto:#{member.email}"
         td= link_to member.slack_username, "https://#{@team.domain}.slack.com/messages/@#{member.slack_username}", target: "_blank"
         td= member.skype_username
         td= member.phone_number
