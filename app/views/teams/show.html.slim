@@ -1,38 +1,41 @@
-h1
-  = @team.name
-  ' 
-  small= link_to "#{@team.domain}.slack.com", "https://#{@team.domain}.slack.com"
+div ng-app="ironDirectory" ng-controller="staffController"
 
-table.table.table-hover
-  thead
-    tr
-      th
-      th Name
-      th
-      th Email
-      th Slack
-      th Skype
-      th Phone
-  tbody
-    - @members.each do |member|
+  h1
+    = @team.name
+    ' 
+    small= link_to "#{@team.domain}.slack.com", "https://#{@team.domain}.slack.com"
+
+  .form-group.col-md-3
+    input ng-model="filter" placeholder="Filter Results" class="form-control"
+
+  table.table.table-hover
+    thead
       tr
+        th
+        = render partial: 'sort_header', locals: { field: 'first_name', label: 'First' }
+        = render partial: 'sort_header', locals: { field: 'last_name', label: 'Last' }
+        = render partial: 'sort_header', locals: { field: 'campus', label: 'Campus' }
+        = render partial: 'sort_header', locals: { field: 'email', label: 'Email' }
+        = render partial: 'sort_header', locals: { field: 'slack_username', label: 'Slack' }
+        = render partial: 'sort_header', locals: { field: 'skype_username', label: 'Skype' }
+        = render partial: 'sort_header', locals: { field: 'phone_number', label: 'Phone' }
+    tbody
+      tr ng-repeat="member in members | filter:filter | orderBy:sort:reverse"
         td
-          = image_tag member.profile["image_48"]
+          / FIXME: pull from a template so this doesn't 404
+          img src="{{ member.image_48 }}"
+        td= "{{ member.first_name }}"
+        td= "{{ member.last_name }}"
         td
-          - if member.user_id == current_user.id
-            = link_to member.name, member.remote_profile_path, target: "_blank"
-          - else
-            = member.name
-        td
-          = member.campus.try(:name)
+          = "{{ member.campus }}"
           br
-          small
-            i
-              - if member.latest_course
-                = member.latest_course.topic.title
-              - else
-                = member.title
-        td= link_to member.email, "mailto:#{member.email}"
-        td= link_to member.slack_username, "https://#{@team.domain}.slack.com/messages/@#{member.slack_username}", target: "_blank"
-        td= member.skype_username
-        td= member.phone_number
+            small
+              i= "{{ title_for(member) }}"
+        td
+          a href="mailto:{{ member.email }}"
+            = "{{ member.email }}"
+        td
+          a href="https://#{@team.domain}.slack.com/messages/@{{ member.slack_username }}" target="_blank"
+            = "{{ member.slack_username }}"
+        td= "{{ member.skype_username }}"
+        td= "{{ member.phone_number }}"

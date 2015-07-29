@@ -14,3 +14,12 @@
  *= require_tree .
  *= require_self
  */
+
+.sortHeader {
+  cursor: pointer;
+}
+
+.sortHeader .glyphicon {
+  font-size: 10px;
+  color: #aaa;
+}
