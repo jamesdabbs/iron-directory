@@ -1,4 +1,16 @@
 module Devise
+  class JSONFailure < FailureApp
+    def respond
+      if request.format == :json
+        self.status        = 401
+        self.content_type  = 'json'
+        self.response_body = { error: 'Authentication error' }.to_json
+      else
+        super
+      end
+    end
+  end
+
   module Strategies
     class AuthHeader < Base
       def valid?
@@ -266,6 +278,7 @@ Devise.setup do |config|
     # manager.intercept_401 = false
     manager.strategies.add(:auth_header, Devise::Strategies::AuthHeader)
     manager.default_strategies(scope: :user).unshift :auth_header
+    manager.failure_app = Devise::JSONFailure
   end
 
   # ==> Mountable engine configurations

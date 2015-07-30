@@ -28,11 +28,11 @@ gem 'slack-mail'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'pry-rails'
   # gem 'rubyXL' # for importing schedule
 end
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'spring'
 end
 
