@@ -36,6 +36,11 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+end
+
 group :production do
   gem 'rails_12factor'
   gem 'puma'

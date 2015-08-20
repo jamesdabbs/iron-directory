@@ -9,6 +9,12 @@ class AuthController < Devise::OmniauthCallbacksController
     redirect_to new_user_session_path, notice: "Signed out"
   end
 
+  def send_ios_login_email
+    user = User.find_by_email! "#{params[:email]}@theironyard.com"
+    AuthMailer.ios_login(user).deliver_later
+    head :ok
+  end
+
   def google_oauth2
     if auth.info.email.end_with? "@theironyard.com"
       user = User.create_from_google_auth auth

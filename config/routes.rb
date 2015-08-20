@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: :auth }
   devise_scope :user do
-    get    '/login'  => 'auth#login',  as: :new_user_session
-    delete '/logout' => 'auth#logout', as: :destroy_user_session
+    get    '/login'       => 'auth#login',  as: :new_user_session
+    delete '/logout'      => 'auth#logout', as: :destroy_user_session
+    post   '/login/email' => 'auth#send_ios_login_email', as: :send_ios_login_email
   end
 
   resource :profile, only: [:show]

@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true
 
+  before_create do |u|
+    u.api_key = User.generate_api_key
+  end
+
   def self.create_from_google_auth auth
     user = where(email: auth.info.email).first_or_initialize
     user.update \
@@ -17,9 +21,18 @@ class User < ActiveRecord::Base
   end
 
   def self.generate_api_key
-    begin
+    loop do
       key = SecureRandom.uuid
-    end while exists?(api_key: key)
-    key
+      return key unless exists?(api_key: key)
+    end
+  end
+
+  def reset_api_key!
+    update api_key: self.class.generate_api_key
+    AuthMailer.ios_login(self).deliver_later
+  end
+
+  def ios_login_link
+    "irondirectory://login/#{api_key}"
   end
 end
