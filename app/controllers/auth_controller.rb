@@ -1,5 +1,6 @@
 class AuthController < Devise::OmniauthCallbacksController
-  skip_before_action :authenticate_user!, only: [:login]
+  skip_before_action :authenticate_user!, only: [:login, :send_ios_login_email]
+  skip_before_action :verify_authenticity_token, only: [:send_ios_login_email]
 
   def login
   end
