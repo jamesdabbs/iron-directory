@@ -84,6 +84,8 @@ Rails.application.configure do
     Bullet.slack  = { webhook_url: Figaro.env.notification_webhook_url!, channel: '@james', username: 'Ironbot' }
   end
 
+  config.action_mailer.default_url_options = { host: "iron-directory.herokuapp.com" }
+
   ActionMailer::Base.smtp_settings = {
     port:           ENV['MAILGUN_SMTP_PORT'],
     address:        ENV['MAILGUN_SMTP_SERVER'],

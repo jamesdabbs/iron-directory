@@ -39,6 +39,9 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { host: "iron-directory.dev" }
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.raise  = true

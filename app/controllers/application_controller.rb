@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   rescue_from StandardError do |e|
-    Slack::Mail.new(username: "Ironbot", channel: "@james").attach_error(e).deliver_later
+    unless e.is_a?(ActiveRecord::RecordNotFound)
+      Slack::Mail.new(username: "Ironbot", channel: "@james").attach_error(e).deliver_later
+    end
     raise e
   end
 

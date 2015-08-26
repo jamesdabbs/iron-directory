@@ -16,6 +16,10 @@ class AuthController < Devise::OmniauthCallbacksController
     head :ok
   end
 
+  def login_on_ios
+    redirect_to "irondirectory://login/#{params[:api_key]}"
+  end
+
   def google_oauth2
     if auth.info.email.end_with? "@theironyard.com"
       user = User.create_from_google_auth auth
