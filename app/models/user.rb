@@ -20,6 +20,17 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.for_login_email username
+    email  = "#{username}@theironyard.com"
+    user   = find_by_email email
+    return user if user
+
+    y = Yardigan.find_by_email! email
+    y.user ||= User.where(email: email).first_or_create!
+    y.save!
+    y.user
+  end
+
   def self.generate_api_key
     loop do
       key = SecureRandom.uuid

@@ -11,7 +11,7 @@ class AuthController < Devise::OmniauthCallbacksController
   end
 
   def send_ios_login_email
-    user = User.find_by_email! "#{params[:email]}@theironyard.com"
+    user = User.for_login_email params[:email]
     AuthMailer.ios_login(user).deliver_later
     head :ok
   end
