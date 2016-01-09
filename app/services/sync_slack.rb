@@ -12,6 +12,8 @@ class SyncSlack
       id    = member.fetch "id"
       email = member.fetch("profile").fetch "email"
 
+      next unless email.present?
+
       y = team.members.where(slack_id: id).first_or_initialize
       y.update! \
         user:       User.find_by_email(email),
