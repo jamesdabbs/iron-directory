@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   end
 
   def self.for_login_email username
-    email  = "#{username}@theironyard.com"
-    user   = find_by_email email
+    email = username.include?("@") ? username : "#{username}@theironyard.com"
+    user  = find_by_email email
     return user if user
 
     y = Yardigan.find_by_email! email
