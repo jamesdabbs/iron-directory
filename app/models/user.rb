@@ -11,18 +11,23 @@ class User < ActiveRecord::Base
   end
 
   def self.create_from_google_auth auth
-    user = where(email: auth.info.email).first_or_initialize
+    email = auth.info.email.downcase
+    user  = where(email: email).first_or_initialize
     user.update \
       google_auth: auth.to_h,
       api_key:     generate_api_key
 
-    Yardigan.where(email: user.email).update_all user_id: user.id
+    Yardigan.where(email: email).update_all user_id: user.id
     user
   end
 
   def self.for_login_email username
-    email = username.include?("@") ? username : "#{username}@theironyard.com"
-    user  = find_by_email email
+    email = if username.include?("@")
+      username
+    else
+      "#{username}@theironyard.com"
+    end.downcase
+    user = find_by_email email
     return user if user
 
     y = Yardigan.find_by_email! email
