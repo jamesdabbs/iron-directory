@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728234837) do
+ActiveRecord::Schema.define(version: 20160312214157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,23 @@ ActiveRecord::Schema.define(version: 20150728234837) do
     t.json     "aliases"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "tiyo_id"
   end
 
   add_index "campuses", ["name"], name: "index_campuses_on_name", unique: true, using: :btree
 
-  create_table "courses", force: :cascade do |t|
-    t.integer "campus_id", null: false
-    t.integer "topic_id",  null: false
-    t.date    "start_on",  null: false
+  create_table "cohorts", force: :cascade do |t|
+    t.integer  "campus_id",  null: false
+    t.integer  "tiyo_id",    null: false
+    t.string   "title",      null: false
+    t.date     "start_on"
+    t.date     "end_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "courses", ["campus_id"], name: "index_courses_on_campus_id", using: :btree
-  add_index "courses", ["topic_id"], name: "index_courses_on_topic_id", using: :btree
+  add_index "cohorts", ["campus_id"], name: "index_cohorts_on_campus_id", using: :btree
+  add_index "cohorts", ["tiyo_id"], name: "index_cohorts_on_tiyo_id", using: :btree
 
   create_table "slack_teams", force: :cascade do |t|
     t.string   "slack_id"
@@ -71,25 +76,37 @@ ActiveRecord::Schema.define(version: 20150728234837) do
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  create_table "yardigan_cohorts", force: :cascade do |t|
+    t.integer  "yardigan_id"
+    t.integer  "cohort_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "yardigan_cohorts", ["cohort_id"], name: "index_yardigan_cohorts_on_cohort_id", using: :btree
+  add_index "yardigan_cohorts", ["yardigan_id"], name: "index_yardigan_cohorts_on_yardigan_id", using: :btree
+
   create_table "yardigans", force: :cascade do |t|
     t.integer  "slack_team_id"
     t.integer  "user_id"
     t.string   "slack_id"
     t.string   "slack_token"
     t.json     "slack_data"
-    t.string   "email",            null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "email",         null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "campus_id"
-    t.integer  "latest_course_id"
+    t.integer  "tiyo_id"
+    t.string   "name"
   end
 
   add_index "yardigans", ["campus_id"], name: "index_yardigans_on_campus_id", using: :btree
   add_index "yardigans", ["slack_id"], name: "index_yardigans_on_slack_id", using: :btree
   add_index "yardigans", ["user_id"], name: "index_yardigans_on_user_id", using: :btree
 
-  add_foreign_key "courses", "campuses"
-  add_foreign_key "courses", "topics"
+  add_foreign_key "cohorts", "campuses"
+  add_foreign_key "yardigan_cohorts", "cohorts"
+  add_foreign_key "yardigan_cohorts", "yardigans"
   add_foreign_key "yardigans", "campuses"
   add_foreign_key "yardigans", "slack_teams"
   add_foreign_key "yardigans", "users"

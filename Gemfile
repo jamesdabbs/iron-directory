@@ -25,6 +25,8 @@ gem 'slack-api', require: 'slack'
 gem 'bullet'
 gem 'slack-mail'
 
+gem 'mechanize'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

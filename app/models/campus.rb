@@ -1,5 +1,6 @@
 class Campus < ActiveRecord::Base
   has_many :courses
 
-  validates :name, presence: true, uniqueness: true
+  validates :tiyo_id, presence: true, uniqueness: true
+  validates :name, presence: true
 end

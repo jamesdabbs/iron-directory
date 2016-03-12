@@ -1,3 +1,4 @@
+# coding: utf-8
 class TeamsController < ApplicationController
   def index
     @teams = SlackTeam.all
@@ -7,7 +8,7 @@ class TeamsController < ApplicationController
     @team = SlackTeam.find params[:id]
     @members = @team.members.active.
       order("slack_data->'profile'->>'last_name'").
-      includes(:campus, latest_course: :topic)
+      includes(:campus, :cohorts)
   end
 
   def staff
