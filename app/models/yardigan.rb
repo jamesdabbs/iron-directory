@@ -4,7 +4,7 @@ class Yardigan < ActiveRecord::Base
   belongs_to :campus
 
   validates :email, presence: true, uniqueness: true
-  validates :tiyo_id, presence: true, uniqueness: true
+  validates :tiyo_id, uniqueness: true, allow_nil: true # For members recorded from Slack
 
   has_many :yardigan_cohorts
   has_many :cohorts, through: :yardigan_cohorts

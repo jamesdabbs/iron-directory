@@ -9,16 +9,16 @@ class SyncSlack
   def run!
     # TODO: this is inefficient, but good enough for now
     members.each do |member|
-      id    = member.fetch "id"
+      slack_id = member.fetch "id"
       email = member.fetch("profile").fetch "email"
 
       next unless email.present?
 
-      y = team.members.where(slack_id: id).first_or_initialize
+      y = Yardigan.where(email: email).first_or_initialize
       y.update! \
         user:       User.find_by_email(email),
-        slack_data: member.to_h,
-        email:      email
+        slack_id:   slack_id,
+        slack_data: member.to_h
     end
 
     self
