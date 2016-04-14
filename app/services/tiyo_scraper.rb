@@ -1,7 +1,7 @@
 class TiyoScraper
   def initialize email:, password:
      @agent = Mechanize.new
-     @agent.get "https://online.theironyard.com" do |page|
+     @agent.get "https://academy.theironyard.com" do |page|
        page.form_with action: "/users/sign_in" do |form|
          form["user[email]"]    = email
          form["user[password]"] = password
@@ -108,6 +108,6 @@ class TiyoScraper
   private
 
   def get url, *args
-    @agent.get "https://online.theironyard.com/admin/#{url}", args
+    @agent.get "https://academy.theironyard.com/admin/#{url}", args
   end
 end
