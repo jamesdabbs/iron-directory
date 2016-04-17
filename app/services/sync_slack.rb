@@ -9,6 +9,7 @@ class SyncSlack
   def run!
     # TODO: this is inefficient, but good enough for now
     members.each do |member|
+      next if member["is_bot"]
       slack_id = member.fetch "id"
       email = member.fetch("profile").fetch "email"
 
